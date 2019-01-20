@@ -9,3 +9,8 @@ Some sample images :
 ![sketch 2](images/flowers/img2.png)
 ![sketch 3](images/flowers/img3.png)
 ![sketch 4](images/flowers/img4.png)
+
+- SquareSpiral
+
+![sketch 1](images/squarespirals/img1.png)
+![sketch 2](images/squarespirals/img2.png)
