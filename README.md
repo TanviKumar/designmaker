@@ -14,3 +14,4 @@ Some sample images :
 
 ![sketch 1](images/squarespirals/img1.png)
 ![sketch 2](images/squarespirals/img2.png)
+![sketch 3](images/squarespirals/img3.png)
