@@ -1,17 +1,16 @@
 # Designmaker
 
-Current designs :
+Quick Links for you to make your own designs :
+- [Rotating editable Flowers](https://tanvikumar.github.io/designmaker/flowers/)
+- [Spiral created by squares](https://tanvikumar.github.io/designmaker/squarespiral/)
 
-- Add different variations of rotating flowers to a canvas.
-Some sample images :
-    
-![sketch 1](images/flowers/img1.png)
-![sketch 2](images/flowers/img2.png)
-![sketch 3](images/flowers/img3.png)
-![sketch 4](images/flowers/img4.png)
+Examples of what we can make :
 
-- SquareSpiral, rotating squares making a spiral.
+- SquareSpiral
 
 ![sketch 1](images/squarespirals/img1.png)
 ![sketch 2](images/squarespirals/img2.png)
-![sketch 3](images/squarespirals/img3.png)
+
+- Flowers
+![sketch 3](images/flowers/img3.png)
+![sketch 4](images/flowers/img4.png)
