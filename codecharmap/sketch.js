@@ -8,6 +8,10 @@ var positions = []; //an array of positions where we will store each of our Vect
 
 var codecharmap = [];
 
+var landColor, waterColor, goldColor;
+var count;
+let gold_bool = false;
+
 function setup(){
 	clear();
 	numberOfColumns = + (document.getElementById("sizeRange").value);  
@@ -18,6 +22,11 @@ function setup(){
 	yStep = height / numberOfRows;
 	codecharmap = [];
 	positions = [];
+
+	//Init Colors
+	landColor = color(0, 200, 0);
+	waterColor = color(0, 0, 200);
+	goldColor = color(255, 200, 0);
   
   	for(var x = xStep / 2 ; x < width; x += xStep) { 
     	for(var y = yStep / 2; y < height; y += yStep) {
@@ -41,17 +50,17 @@ function setup(){
 	for(var i = 0; i < numberOfRows; ++i) { 
     	for(var j = 0; j < numberOfColumns; ++j) {
 			if (codecharmap[i][j] == 2 || codecharmap[numberOfRows - 1 - i][numberOfColumns - 1 - j] == 2) {
-				fill(0, 0, 200);
+				fill(waterColor);
 				codecharmap[i][j] = 2;
 				codecharmap[numberOfRows - 1 - i][numberOfColumns - 1 - j] = 2;
 			}
 			else if (codecharmap[i][j] == 1 || codecharmap[numberOfRows - 1 - i][numberOfColumns - 1 - j] == 1) {
-				fill(0, 200, 0);
+				fill(landColor);
 				codecharmap[i][j] = 1;
 				codecharmap[numberOfRows - 1 - i][numberOfColumns - 1 - j] = 1;
 			}
 			else if (codecharmap[i][j] == 0 || codecharmap[numberOfRows - 1 - i][numberOfColumns - 1 - j] == 0) {
-				fill(255, 200, 0);
+				fill(goldColor);
 				codecharmap[i][j] = 0;
 				codecharmap[numberOfRows - 1 - i][numberOfColumns - 1 - j] = 0;
 			}
@@ -65,27 +74,45 @@ function setup(){
 function mouseClicked() {
 	let xIndex = int(mouseX / xStep);
 	let yIndex = int(mouseY / yStep);
-	codecharmap[xIndex][yIndex]++;
-	codecharmap[xIndex][yIndex] = codecharmap[xIndex][yIndex] % 3;
+	if (gold_bool) {
+		codecharmap[xIndex][yIndex]++;
+		codecharmap[xIndex][yIndex] = codecharmap[xIndex][yIndex] % 3;
+	} else {
+		if (codecharmap[xIndex][yIndex] == 2 || codecharmap[xIndex][yIndex] == 0)
+			codecharmap[xIndex][yIndex] = 1;
+		else
+			codecharmap[xIndex][yIndex] = 2;
+	}
 	codecharmap[numberOfRows - 1 - xIndex][numberOfColumns - 1 - yIndex] = codecharmap[xIndex][yIndex];
-	count = 0;
+	drawMap();
+}
 
+function mouseDragged() {
+	let xIndex = int(mouseX / xStep);
+	let yIndex = int(mouseY / yStep);
+	codecharmap[xIndex][yIndex] = document.getElementById("terrain").value;
+	codecharmap[numberOfRows - 1 - xIndex][numberOfColumns - 1 - yIndex] = codecharmap[xIndex][yIndex];
+	drawMap();
+	return false;
+}
+
+function drawMap() {
+	count = 0;
 	for(var i = 0; i < numberOfRows; ++i) { 
     	for(var j = 0; j < numberOfColumns; ++j) {
 			if (codecharmap[i][j] == 2) {
-				fill(0, 0, 200);
+				fill(waterColor);
 			}
 			else if (codecharmap[i][j] == 1) {
-				fill(0, 200, 0);
+				fill(landColor);
 			}
 			else if (codecharmap[i][j] == 0) {
-				fill(255, 200, 0);
+				fill(goldColor);
 			}
 			rect(positions[count].x, positions[count].y, xStep, yStep);
 			count++;
     	}
 	}
-	console.log(codecharmap);
 }
 
 function downloadMap() {
@@ -119,4 +146,14 @@ function downloadMap() {
 function setSize(event) {
 	document.getElementById("sizeText").innerHTML = event.target.value;
 	setup();
+}
+
+function noGold(event) {
+	if (gold_bool) {
+		document.getElementById("boolGold").checked = false;
+		gold_bool = false;
+	} else {
+		gold_bool = true;
+		document.getElementById("boolGold").checked = true;
+	}
 }
